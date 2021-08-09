@@ -34,8 +34,12 @@ class ViewController: UIViewController {
         view.addSubview(navigationBar)
         view.addSubview(tableView)
         setTableView()
-    
         
+        authorizeContactStore()
+
+    }
+    
+    func authorizeContactStore() {
         let authorize = CNContactStore.authorizationStatus(for: .contacts)
         if authorize == .notDetermined {
             store.requestAccess(for: .contacts) { (granted, error) in
