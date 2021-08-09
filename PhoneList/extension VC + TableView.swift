@@ -11,14 +11,14 @@ import  UIKit
 extension ViewController: UITableViewDelegate, UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contacts.count
+        return contactList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! CustomCell
-        cell.nameLabel.text = contacts[indexPath.row].name
-        cell.phoneNumberLabel.text = contacts[indexPath.row].phoneNumber
+        cell.nameLabel.text = contactList[indexPath.row].name
+        cell.phoneNumberLabel.text = contactList[indexPath.row].phoneNumber
         
         return cell
     }

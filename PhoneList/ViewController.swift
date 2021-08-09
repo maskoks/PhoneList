@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Contacts
 
 class ViewController: UIViewController {
  
-    var contacts:  [Contact] = []
+    var contactList:  [Contact] = []
+    
+    let store = CNContactStore()
     
     let tableView = UITableView()
     var alert = UIAlertController()
@@ -19,8 +22,6 @@ class ViewController: UIViewController {
         navBar.backgroundColor = .white
         navBar.translatesAutoresizingMaskIntoConstraints = false
         let navItem = UINavigationItem(title: "Контакты")
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: #selector(addButtonAction))
-        navItem.rightBarButtonItem = addButton
         navBar.setItems([navItem], animated: false)
 
         return navBar
@@ -34,8 +35,30 @@ class ViewController: UIViewController {
         view.addSubview(tableView)
         setTableView()
     
-        contacts.append(Contact(name: "Жеребцов Данил", phoneNumber: "89841982626"))
-
+        
+        let authorize = CNContactStore.authorizationStatus(for: .contacts)
+        if authorize == .notDetermined {
+            store.requestAccess(for: .contacts) { (granted, error) in
+                if error == nil {
+                    self.getContacts()
+                }
+            }
+        } else if authorize == .authorized {
+            self.getContacts()
+        }
+    }
+    
+    func getContacts() {
+        
+        let predicate = CNContact.predicateForContactsInContainer(withIdentifier: store.defaultContainerIdentifier())
+        let contacts = try! store.unifiedContacts(matching: predicate, keysToFetch: [CNContactFamilyNameKey as CNKeyDescriptor, CNContactGivenNameKey as CNKeyDescriptor, CNContactPhoneNumbersKey as CNKeyDescriptor])
+        for contact in contacts {
+            var contactPhoneNumber = ""
+            for phoneNumber in contact.phoneNumbers {
+                contactPhoneNumber = phoneNumber.value.stringValue
+            }
+            contactList.append(Contact(name: contact.givenName + " " + contact.familyName, phoneNumber: contactPhoneNumber))
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -70,47 +93,5 @@ class ViewController: UIViewController {
         tableView.bottomAnchor.constraint(equalTo: guide.bottomAnchor).isActive = true
         
     }
-    
-    @objc func addButtonAction() {
-        
-        alert = UIAlertController(title: "Create new task", message: nil, preferredStyle: .alert)
-               
-        alert.addTextField { (nameTextField: UITextField) in
-            nameTextField.placeholder = "Введите имя"
-            nameTextField.addTarget(self, action: #selector(self.alertTextFieldDidChange(_:)), for: .editingChanged)
-        }
-    
-        alert.addTextField { (phoneTextField: UITextField) in
-            phoneTextField.placeholder = "Введите номер телефона"
-            phoneTextField.keyboardType = .phonePad
-        }
-               
-        let createAlertAction = UIAlertAction(title: "Create", style: .default) { (addContact) in
-            
-            guard let unwrName = self.alert.textFields?[0].text, let unwrNumber = self.alert.textFields?[1].text else { return }
-            self.contacts.append(Contact(name: unwrName, phoneNumber: unwrNumber))
-            self.tableView.reloadData()
-                   
-        }
-               
-        let cancelAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-
-        alert.addAction(cancelAlertAction)
-        alert.addAction(createAlertAction)
-        present(alert, animated: true, completion: nil)
-        createAlertAction.isEnabled = false
-        
-    }
-    
-    
-    @objc func alertTextFieldDidChange(_ sender: UITextField) {
-
-        guard let senderText = sender.text, alert.actions.indices.contains(1) else { return }
-        let action = alert.actions[1]
-        action.isEnabled = senderText.count > 0
-        
-    }
-
-
 }
 

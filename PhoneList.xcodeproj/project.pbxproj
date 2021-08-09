@@ -18,6 +18,7 @@
 		317157B326A97D8D0010F4AE /* PhoneListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317157B226A97D8D0010F4AE /* PhoneListUITests.swift */; };
 		317157C126A97E850010F4AE /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317157C026A97E850010F4AE /* CustomCell.swift */; };
 		317157C326A97EFC0010F4AE /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317157C226A97EFC0010F4AE /* ContactModel.swift */; };
+		31953B2B26C1552600901B32 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31953B2A26C1552600901B32 /* Contacts.framework */; };
 		3199E50926B8668E0056E8D9 /* extension VC + TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3199E50826B8668E0056E8D9 /* extension VC + TableView.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		317157B426A97D8D0010F4AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		317157C026A97E850010F4AE /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		317157C226A97EFC0010F4AE /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
+		31953B2A26C1552600901B32 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		3199E50826B8668E0056E8D9 /* extension VC + TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "extension VC + TableView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31953B2B26C1552600901B32 /* Contacts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,6 +94,7 @@
 				317157A626A97D8D0010F4AE /* PhoneListTests */,
 				317157B126A97D8D0010F4AE /* PhoneListUITests */,
 				3171578B26A97D8B0010F4AE /* Products */,
+				31953B2926C1552500901B32 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -138,6 +142,14 @@
 				317157B426A97D8D0010F4AE /* Info.plist */,
 			);
 			path = PhoneListUITests;
+			sourceTree = "<group>";
+		};
+		31953B2926C1552500901B32 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				31953B2A26C1552600901B32 /* Contacts.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
